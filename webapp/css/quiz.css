@@ -1,0 +1,7 @@
+.sapMSelectListItem{
+    padding: 0;
+    white-space: initial;
+    background-color: green;
+     word-wrap: break-word;
+    overflow: initial;
+}

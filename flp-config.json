@@ -1,0 +1,36 @@
+{
+    "application": {
+        "id": "",
+        "title": "vnsg.ZNVSG_QUIZ",
+        "description": "Quiz",
+        "type": "SAP_UI5_Component",
+        "componentUrl": "/",
+        "appUrl": "#ZNVSG_QUIZ-Display",
+        "navigationComponentName": "vnsg",
+        "intentSemanticObject": "ZNVSG_QUIZ",
+        "intentAction": "Display",
+        "html5ApplicationName": "znvsgquiz",
+        "HCPParentApplicationName": ""
+    },
+    "assignment": {
+        "groups": [
+            "70598002-fe43-4a57-9524-b32ea143246e-1487190280492"
+        ],
+        "contentPackages": [
+            "941d07dd-943e-4e51-86b5-88a9ac326ae5-1487190301390"
+        ],
+        "categories": []
+    },
+    "tile": {
+        "type": "DynamicTile",
+        "title": "Quiz",
+        "subtitle": "",
+        "searchKeywords": "Quiz,",
+        "displayIconUrl": "sap-icon://competitor",
+        "displayInfoText": "",
+        "size": "1x1",
+        "serviceURL": "/sap/fiori/znvsgquiz/sap/opu/odata/sap/ZVNSG17_QUIZ_SRV/QuestionSet/$count",
+        "refreshInterval": "60",
+        "displayNumberUnit": "Question"
+    }
+}

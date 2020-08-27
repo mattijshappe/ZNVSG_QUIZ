@@ -1,0 +1,15 @@
+<mvc:View
+	controllerName="vnsg.controller.ObjectNotFound"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+
+	<MessagePage
+		title="{Description}"
+		text=""
+		icon="sap-icon://travel-request"
+		id="page">
+		<customDescription>
+			<Link id="link" text="{i18n>backToWorklist}" href="http://www.ctac.nl" target="_blank"  />
+		</customDescription>
+	</MessagePage>
+</mvc:View>

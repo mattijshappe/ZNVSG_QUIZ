@@ -1,0 +1,16 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:tnt="sap.tnt" controllerName="vnsg.controller.Quiz">
+	<semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="false" title="{Description}" showFooter="false">
+		<semantic:content>
+			<tnt:ToolHeader>
+				<Image id="idLogoImage2" busy="false" src="https://www.ctac.nl/App_Themes/Ctac2015/Images/CTAC.png" activeSrc="https://www.ctac.nl/App_Themes/Ctac2015/Images/CTAC.png" height="50px"/>	
+			</tnt:ToolHeader>			
+			<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="__form0">
+				<sap.ui.layout.form:content>
+					<sap.ui.core:Title text="Enter your details" id="__title0"/>
+					<Label text="Email address" id="__label0"/>
+					<Input width="100%" type="Email" id="idInputEmail" placeholder="Enter your email address" change="onChangeEmail"/>
+					<Button text="Confirm" width="100px" id="idButtonConfirm" press="onConfirm"/></sap.ui.layout.form:content>
+			</sap.ui.layout.form:SimpleForm>
+		</semantic:content>
+	</semantic:FullscreenPage>
+</mvc:View>

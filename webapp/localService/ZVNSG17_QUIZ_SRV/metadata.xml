@@ -1,0 +1,93 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZVNSG17_QUIZ_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="Question" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="QuizId"/>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="Email"/>
+                </Key>
+                <Property Name="QuizId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="QuizId" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Id" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="241" sap:label="Email" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="QuestionText" Type="Edm.String" Nullable="false" sap:label="Question" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="myAnswerId" Type="Edm.String" MaxLength="10" sap:label="myAnswerId" sap:filterable="false"/>
+                <Property Name="Answered" Type="Edm.Boolean" sap:label="Answered" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToAnswers" Relationship="ZVNSG17_QUIZ_SRV.Question2Answers" FromRole="FromRole_Question2Answers" ToRole="ToRole_Question2Answers"/>
+                <NavigationProperty Name="toQuiz" Relationship="ZVNSG17_QUIZ_SRV.Quiz2Questions" FromRole="ToRole_Quiz2Questions" ToRole="FromRole_Quiz2Questions"/>
+            </EntityType>
+            <EntityType Name="Answer" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="QuizId"/>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="QuestionId"/>
+                    <PropertyRef Name="Email"/>
+                </Key>
+                <Property Name="QuizId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="QuizId" sap:filterable="false"/>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Id" sap:filterable="false"/>
+                <Property Name="QuestionId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="QId" sap:filterable="false"/>
+                <Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="241" sap:label="Email" sap:sortable="false"/>
+                <Property Name="AnswerText" Type="Edm.String" Nullable="false" sap:label="Answer" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Answered" Type="Edm.Boolean" Nullable="false" sap:label="Answered" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToQuestion" Relationship="ZVNSG17_QUIZ_SRV.Question2Answers" FromRole="ToRole_Question2Answers" ToRole="FromRole_Question2Answers"/>
+            </EntityType>
+            <EntityType Name="Quiz" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Id" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <NavigationProperty Name="toQuestions" Relationship="ZVNSG17_QUIZ_SRV.Quiz2Questions" FromRole="FromRole_Quiz2Questions" ToRole="ToRole_Quiz2Questions"/>
+            </EntityType>
+            <Association Name="Quiz2Questions" sap:content-version="1">
+                <End Type="ZVNSG17_QUIZ_SRV.Quiz" Multiplicity="1" Role="FromRole_Quiz2Questions"/>
+                <End Type="ZVNSG17_QUIZ_SRV.Question" Multiplicity="*" Role="ToRole_Quiz2Questions"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Quiz2Questions">
+                        <PropertyRef Name="Id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Quiz2Questions">
+                        <PropertyRef Name="QuizId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Question2Answers" sap:content-version="1">
+                <End Type="ZVNSG17_QUIZ_SRV.Question" Multiplicity="1" Role="FromRole_Question2Answers"/>
+                <End Type="ZVNSG17_QUIZ_SRV.Answer" Multiplicity="*" Role="ToRole_Question2Answers"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Question2Answers">
+                        <PropertyRef Name="QuizId"/>
+                        <PropertyRef Name="Email"/>
+                        <PropertyRef Name="Id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Question2Answers">
+                        <PropertyRef Name="QuizId"/>
+                        <PropertyRef Name="Email"/>
+                        <PropertyRef Name="Id"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZVNSG17_QUIZ_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="AnswerSet" EntityType="ZVNSG17_QUIZ_SRV.Answer" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="QuizSet" EntityType="ZVNSG17_QUIZ_SRV.Quiz" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="QuestionSet" EntityType="ZVNSG17_QUIZ_SRV.Question" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="Question2AnswersSet" Association="ZVNSG17_QUIZ_SRV.Question2Answers" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="QuestionSet" Role="FromRole_Question2Answers"/>
+                    <End EntitySet="AnswerSet" Role="ToRole_Question2Answers"/>
+                </AssociationSet>
+                <AssociationSet Name="Quiz2QuestionsSet" Association="ZVNSG17_QUIZ_SRV.Quiz2Questions" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="QuizSet" Role="FromRole_Quiz2Questions"/>
+                    <End EntitySet="QuestionSet" Role="ToRole_Quiz2Questions"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZVNSG17_QUIZ_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZVNSG17_QUIZ_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>

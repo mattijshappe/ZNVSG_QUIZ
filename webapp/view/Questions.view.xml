@@ -1,0 +1,47 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt"
+	xmlns:semantic="sap.m.semantic" xmlns:mc="sap.suite.ui.microchart" xmlns:uxap="sap.uxap" controllerName="vnsg.controller.Questions">
+	<semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="true" title="{toQuiz/Description}" showFooter="false">
+		<semantic:content>
+			<uxap:ObjectPageHeaderContent>
+				<uxap:content>
+					<l:VerticalLayout>
+						<Image id="idLogoImage2" busy="false" src="https://www.ctac.nl/App_Themes/Ctac2015/Images/CTAC.png"
+							activeSrc="https://www.ctac.nl/App_Themes/Ctac2015/Images/CTAC.png" height="50px"/>
+						<ProgressIndicator class="sapUiSmallMarginBottom"
+							percentValue="{parts:[{path: 'Questions>/questionCount'},{path:'Questions>/activeQuestionIndex'}], formatter:'.formatter.progressPercentFormatter'}"
+							displayValue="{parts:[{path: 'Questions>/questionCount'},{path:'Questions>/activeQuestionIndex'}], formatter:'.formatter.progressValueFormatter'}"
+							showValue="true" width="30%" state="Success"/>
+					</l:VerticalLayout>
+				</uxap:content>
+			</uxap:ObjectPageHeaderContent>
+			<!--<tnt:ToolHeader>-->
+			<!--<HBox class="sapUiSmallMargin">-->
+			<!--	<Image id="idLogoImage2" busy="false" src="https://www.ctac.nl/App_Themes/Ctac2015/Images/CTAC.png"-->
+			<!--		activeSrc="https://www.ctac.nl/App_Themes/Ctac2015/Images/CTAC.png" height="50px"/>-->
+			<!--	<ProgressIndicator class="sapUiSmallMarginBottom"-->
+			<!--		percentValue="{parts:[{path: 'Questions>/questionCount'},{path:'Questions>/activeQuestionIndex'}], formatter:'.formatter.progressPercentFormatter'}"-->
+			<!--		displayValue="{parts:[{path: 'Questions>/questionCount'},{path:'Questions>/activeQuestionIndex'}], formatter:'.formatter.progressValueFormatter'}"-->
+			<!--		showValue="true" width="30%" state="Success"/>-->
+			<!--</tnt:ToolHeader>-->
+			<VBox class="sapUiSmallMargin">
+				<FormattedText htmlText="{QuestionText}" class="sapUiMediumMarginBottom"/>
+				<List id="idAnswerList" class="sapUiSmallMarginEnd" updateFinished="onAnswerListUpdated">
+					<CustomListItem type="{= ${ToQuestion/Answered} === true ? 'Inactive' : 'Active' }" press="onAnswerPress" id="idColumnListItem">
+						<content>
+							<HBox>
+								<RadioButton groupName="Answer" select="onSelectAnswer" editable="{= ${ToQuestion/Answered} === true ? false : true }"
+									fieldGroupIds="rbAnswer"/>
+								<Text maxLines="6" wrapping="true" text="{AnswerText}" class="sapUiTinyMarginTop"/>
+							</HBox>
+						</content>
+					</CustomListItem>
+				</List>
+				<HBox>
+					<Button type="Default" text="{i18n>btnPrev}" press="onPreviousQuestion" id="btnPrev"
+						enabled="{= ${Questions>/activeQuestionIndex} &gt; 1 ? true : false }"/>
+					<Button type="Default" text="{= ${Answered} === true ? ${i18n>btnNext} : ${i18n>btnSubmit} }" press="onSubmitAnswer"/>
+				</HBox>
+			</VBox>
+		</semantic:content>
+	</semantic:FullscreenPage>
+</mvc:View>
